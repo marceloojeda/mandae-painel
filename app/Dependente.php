@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Helpers\Formatacao;
 use App\User;
+use App\Conta;
 
 class Dependente extends Model
 {
@@ -41,6 +42,8 @@ class Dependente extends Model
 
         $model->save();
 
+        $this->cadastrarConta($model);
+
         return $model;
     }
 
@@ -58,7 +61,12 @@ class Dependente extends Model
 		$model->save();
 
 		return $model->id;
-	}
+    }
+    
+    private function cadastrarConta($model){
+        $contaRepo = new Conta();
+        $contaRepo->cadastrar($model);
+    }
 
     public function atualizar($request){
 

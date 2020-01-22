@@ -16,6 +16,17 @@ class Conta extends Model
     	$this->fillable = ['dependente_id', 'saldo', 'limite_diario'];
     }
 
+    public function cadastrar(Dependente $dependente){
+        $model = new Conta();
+        $model->dependente_id = $dependente->id;
+        $model->saldo = 0;
+        $model->limite_diario = 0;
+
+        $model->save();
+
+        return $model->id;
+    }
+
     public function dependente()
     {
         return $this->hasOne('App\Dependente', 'id', 'dependente_id');
