@@ -35,7 +35,7 @@ class Produto extends Model
 
         public function atualizar($request){
 
-            $model = $this->getById($request->idProduto);
+            $model = Produto::where('id', $request->idProduto);
 
             if(isset($request->idCategoria)) $model->categoria_id = $request->idCategoria;
             if(isset($request->descricao)) $model->descricao = $request->descricao;
@@ -61,15 +61,15 @@ class Produto extends Model
 
         $produtos->orderBy('descricao');
 
-        return $produtos->paginate(15);
+        return $produtos->paginate();
     }
 
     public function getCategorias(){
-            $categorias = DB::table('categorias')
-                ->orderBy('descricao')
-                ->get();
+        $categorias = DB::table('categorias')
+            ->orderBy('descricao')
+            ->get();
 
-            return $categorias;
+        return $categorias;
     }
 
     public function cadastrarCategoria($descricao, $idUser){

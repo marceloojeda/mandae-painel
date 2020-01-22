@@ -13,7 +13,7 @@ class PedidoItem extends Model
 
     public function __construct(){
     	$this->table = "pedido_itens";
-    	// $this->fillable = ['estabelecimento_id', 'dependente_id', 'total', 'status', 'numero_pedido'];
+    	$this->fillable = ['pedido_id', 'produto_id', 'valor_unitario', 'quantidade', 'total'];
     }
 
     public function produto()

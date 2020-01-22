@@ -87,7 +87,7 @@ class ProdutoController extends Controller
      */
     public function edit($id)
     {
-        $produto = Produto::where('id', $id)->firstOrFail();
+        $produto = $this->produtoRepo->getById($id);
         $produto->preco_venda = Formatacao::formataNumero($produto->preco_venda);
 
         $categorias = $this->produtoRepo->getCategorias();

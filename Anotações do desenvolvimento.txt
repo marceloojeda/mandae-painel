@@ -5,3 +5,6 @@ META:
 	* O cantineiro possa fazer a adesão online, apenas fazendo um cadastro simples e montando seu cardápio online.
 	* O responsável possa contratar esse serviço pela internet, bastando pra isso criar uma conta e cadastrando seus dependentes.
 	* O portal do responsável deverá permitir a inclusão de créditos online.
+
+
+ssh -i icantina.pem ubuntu@52.67.41.167

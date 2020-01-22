@@ -29,8 +29,8 @@ Route::namespace('Canteen')->group(function () {
     Route::post('/canteen', 'EstabelecimentoController@store');
 
     Route::get('/canteen/cardapio', 'ProdutoController@index')->middleware('auth');
-    Route::get('/canteen/cardapio/{id}', 'ProdutoController@edit')->middleware('auth');
     Route::get('/canteen/cardapio/create', 'ProdutoController@create')->middleware('auth');
+    Route::get('/canteen/cardapio/{id}', 'ProdutoController@edit')->middleware('auth');
     Route::post('/canteen/cardapio', 'ProdutoController@store')->middleware('auth');
     Route::put('/canteen/cardapio/{id}', 'ProdutoController@update')->middleware('auth');
     Route::post('/canteen/cardapio/categoria', 'ProdutoController@cadastrarCategoria')->middleware('auth');
