@@ -57,12 +57,12 @@
 
                                 <div class="col-4 mb-2">
                                     <label>Nascimento</label>
-                                    <input type="text" class="form-control" name="dataNascimento" value="{{ old('dataNascimento') }}">
+                                    <input type="text" class="form-control nascimento" name="dataNascimento" value="{{ old('dataNascimento') }}">
                                 </div>
 
                                 <div class="col-4 mb-2">
-                                    <label>Telefone</label>
-                                    <input type="text" class="form-control" name="telefone" value="{{ old('telefone') }}">
+                                    <label>Celular</label>
+                                    <input type="text" class="form-control celular" name="telefone" value="{{ old('telefone') }}">
                                 </div>
 
                                 <div class="col-4 mb-2">

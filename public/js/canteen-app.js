@@ -21,6 +21,7 @@ function setMascaras() {
     
     $(".cpf").mask("999.999.999-99");
     $('.cnpj').mask("99.999.999/9999-99");
+    $('.nascimento').mask("99/99/9999");
     
     $('.fone-fixo').mask('(00) 0000-00009');
     $('.fone-fixo').blur(function(event) {

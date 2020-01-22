@@ -28,6 +28,10 @@ class HomeController extends Controller
             return redirect('/canteen');
         }
 
+        if(Auth()->user()->perfil == Config::get('constants.PERFIL_USUARIO.RESPONSAVEL', 2)) {
+            return redirect('/dad');
+        }
+
         return view('home');
     }
 }
