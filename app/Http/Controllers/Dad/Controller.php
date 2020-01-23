@@ -37,7 +37,7 @@ class Controller extends BaseController
         }
 
         $responsavel = Responsavel::getByUserId($user->id);
-        return $responsavel->id;
+        return $responsavel->estabelecimento_id;
     }
 
     protected function getIdResponsavel(){
