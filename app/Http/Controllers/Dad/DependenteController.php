@@ -60,10 +60,10 @@ class DependenteController extends Controller
             'senha.required' => 'Favor informar uma senha.'
         ]);
 
-        $request->idResponsavel = $this->getIdResponsavel();
-        $request->idEstabelecimento = $this->getIdEstabelecimento();
+        $idResponsavel = $this->getIdResponsavel();
+        $idEstabelecimento = $this->getIdEstabelecimento();
 
-        $model = $this->dependenteRepo->cadastrar($request);
+        $model = $this->dependenteRepo->cadastrar($request, $idResponsavel, $idEstabelecimento);
 
         return redirect('dad');
     }

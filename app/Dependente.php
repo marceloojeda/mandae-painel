@@ -20,11 +20,11 @@ class Dependente extends Model
             'data_nascimento', 'sexo', 'senha', 'ativo'];
     }
 
-    public function cadastrar($request){
+    public function cadastrar($request, $idResponsavel, $idEstabelecimento){
         $model = new Dependente();
 
-        if(isset($request->idEstabelecimento)) $model->estabelecimento_id = $request->idEstabelecimento;
-        if(isset($request->idResponsavel)) $model->responsavel_id = $request->idResponsavel;
+        if(isset($idEstabelecimento)) $model->estabelecimento_id = $idEstabelecimento;
+        if(isset($idResponsavel)) $model->responsavel_id = $idResponsavel;
 
         if(isset($request->senha)) {
             $model->user_id = $this->cadastrarUsuario($request);
