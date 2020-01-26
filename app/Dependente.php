@@ -109,4 +109,13 @@ class Dependente extends Model
 
         return $models;
     }
+
+    public function getPedidos($idDependente){
+        return DB::table('pedidos')
+            ->join('contas', 'pedidos.conta_id', 'contas.id')
+            ->where('contas.dependente_id', $idDependente)
+            ->select('pedidos.*')
+            ->orderBy('pedidos.id', 'desc')
+            ->paginate();
+    }
 }

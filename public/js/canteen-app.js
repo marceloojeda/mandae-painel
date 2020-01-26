@@ -7,6 +7,13 @@ function eventos() {
         $('#createCategoria').modal('show');
     });
 
+    $('#selDependente').change(function (item) {
+
+        let idAluno = item.currentTarget.value;
+
+        window.location.href = "/dad/shopping/" + idAluno;
+    })
+
     setMascaras();
 }
 
@@ -135,4 +142,42 @@ function estornarPedido() {
 
 function selectPedido(id) {
     $('#pedidoSelecionado').val(id);
+}
+
+function openModal(id, target) {
+    
+    switch (target) {
+        case 'pedido':
+            getDetalhesPedido(id);
+            break;
+    
+        default:
+            break;
+    }
+}
+
+function getDetalhesPedido(idPedido) {
+    
+    $.get('/dad/childs/pedidos/' + idPedido, function (retorno) {
+        
+        $('#tabItens tbody tr').remove();
+        $('#numero').val(retorno.pedido.numero_pedido);
+        $('#data').val(retorno.dataPedido);
+        $('#situacao').val(retorno.pedido.status);
+        $('#dependente').val(retorno.dependente.nome);
+        $('#serie').val(retorno.dependente.serie);
+
+        retorno.itens.forEach((item, index) => {
+            let row = '<tr>';
+            row += '<td>' + item.quantidade + '</td>';
+            row += '<td>' + item.produto + '</td>';
+            row += '<td class="text-right">' + item.valorUnitario + '</td>';
+            row += '<td class="text-right">' + item.total + '</td>';
+            row += '</tr>';
+
+            $('#tabItens tbody').append(row);
+
+            $('#detalhePedido').modal('show');
+        });
+    })
 }

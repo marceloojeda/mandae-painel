@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers\Dad;
 
+use Illuminate\Http\Request;
+use App\Helpers\Formatacao;
 use App\Dependente;
 use App\Responsavel;
 use App\Estabelecimento;
-use Illuminate\Http\Request;
+use App\Pedido;
 
 class DependenteController extends Controller
 {
     private $dependenteRepo;
+    private $pedidoRepo;
 
     public function __construct(){
         $this->dependenteRepo = new Dependente();
+        $this->pedidoRepo = new Pedido();
     }
 
 
@@ -69,17 +73,6 @@ class DependenteController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Responsavel  $responsavel
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Responsavel $responsavel)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Responsavel  $responsavel
@@ -90,6 +83,37 @@ class DependenteController extends Controller
         $dependente = $this->dependenteRepo->getById($id);
 
         return view("dad.childs.edit", compact("dependente"));
+    }
+
+    public function showPedido($id){
+        $pedido = $this->pedidoRepo->getById($id);
+        $createdAt = Formatacao::toDateBrHr($pedido->created_at);
+        $itens = $this->getItens($pedido);
+
+        $retorno = array(
+            'pedido' => $pedido,
+            'dataPedido' => $createdAt,
+            'itens' => $itens,
+            'dependente' => $pedido->conta->dependente
+        );
+
+        return response()->json($retorno);
+    }
+
+    private function getItens($pedido){
+        $itens = [];
+        foreach ($pedido->itens as $item) {
+            $itens[] =  array(
+                'idPedidoItem' => $item->id,
+                'idProduto' => $item->produto_id,
+                'produto' => $item->produto->descricao,
+                'quantidade' => $item->quantidade,
+                'valorUnitario' => Formatacao::formataNumero($item->valor_unitario),
+                'total' => Formatacao::formataNumero($item->total)
+            );
+        }
+
+        return $itens;
     }
 
     /**

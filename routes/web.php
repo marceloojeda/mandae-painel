@@ -46,6 +46,7 @@ Route::namespace('Canteen')->group(function () {
 Route::namespace('Dad')->group(function () {
     Route::get('/dad', 'ResponsavelController@index')->middleware('auth');
     Route::get('/dad/create', 'ResponsavelController@create');
+    Route::get('/dad/shopping/{idDependente}', 'ResponsavelController@verCompras');
     Route::post('/dad', 'ResponsavelController@store');
 
     Route::get('/dad/childs', 'DependenteController@index')->middleware('auth');
@@ -55,5 +56,5 @@ Route::namespace('Dad')->group(function () {
     Route::put('/dad/childs/{id}', 'DependenteController@update')->middleware('auth');
 
     // endpoints usados pelo app, pelo dependente
-    Route::post('/childs/login', 'DependenteController@login');
+    Route::get('/dad/childs/pedidos/{id}', 'DependenteController@showPedido');
 });

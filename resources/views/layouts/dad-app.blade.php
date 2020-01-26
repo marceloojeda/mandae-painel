@@ -48,7 +48,7 @@
                         </li>
 
                         <li class="nav-item ml-4">
-                            <a class="nav-link" href="/dad/shopping">Compras</a>
+                            <a class="nav-link" href="/dad/shopping/0">Compras</a>
                         </li>
 
                         <li class="nav-item ml-4">

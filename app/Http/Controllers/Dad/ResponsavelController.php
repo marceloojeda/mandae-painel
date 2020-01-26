@@ -4,14 +4,17 @@ namespace App\Http\Controllers\Dad;
 
 use App\Responsavel;
 use App\Estabelecimento;
+use App\Dependente;
 use Illuminate\Http\Request;
 
 class ResponsavelController extends Controller
 {
     private $responsavelRepo;
+    private $dependenteRepo;
 
     public function __construct(){
         $this->responsavelRepo = new Responsavel();
+        $this->dependenteRepo = new Dependente();
     }
 
 
@@ -109,5 +112,26 @@ class ResponsavelController extends Controller
     public function destroy(Responsavel $responsavel)
     {
         //
+    }
+
+    public function verCompras($idDependente = 0)
+    {
+
+        $filhos = $this->dependenteRepo->getByResponsavel($this->getIdResponsavel());
+
+        if(!$idDependente) {
+
+            $dependente = $filhos[0];
+            $pedidos = $this->dependenteRepo->getPedidos($dependente->id);
+            
+
+            return view('dad.childs.history', compact('filhos', 'dependente', 'pedidos'));
+        }
+
+        $dependente = $this->dependenteRepo->getById($idDependente);
+        $pedidos = $this->dependenteRepo->getPedidos($dependente->id);
+        $idSelecionado = $idDependente;
+
+        return view('dad.childs.history', compact('filhos', 'dependente', 'pedidos', 'idSelecionado'));
     }
 }
