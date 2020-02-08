@@ -1,0 +1,40 @@
+{2020/02/02 19:14:50} [Info] PagSeguroPaymentService.Register(PagSeguroRequest: array (
+  'Reference' => 'REF123',
+  'SenderEmail' => 'email@comprador.com.br',
+)) - begin 
+{2020/02/02 19:14:51} [Info] PagSeguroPaymentService.Register(PagSeguroRequest: array (
+  'Reference' => 'REF123',
+  'SenderEmail' => 'email@comprador.com.br',
+)) - end {1}B3A0E370F4F40C4334026F83782D6F24 
+{2020/02/02 19:15:32} [Info] PagSeguroPaymentService.Register(PagSeguroRequest: array (
+  'Reference' => 'REF123',
+  'SenderEmail' => 'email@comprador.com.br',
+)) - begin 
+{2020/02/02 19:15:33} [Info] PagSeguroPaymentService.Register(PagSeguroRequest: array (
+  'Reference' => 'REF123',
+  'SenderEmail' => 'email@comprador.com.br',
+)) - end {1}590B006FD4D4FC799463AF842400574A 
+{2020/02/02 19:16:01} [Info] PagSeguroPaymentService.Register(PagSeguroRequest: array (
+  'Reference' => 'REF123',
+  'SenderEmail' => 'email@comprador.com.br',
+)) - begin 
+{2020/02/02 19:16:02} [Info] PagSeguroPaymentService.Register(PagSeguroRequest: array (
+  'Reference' => 'REF123',
+  'SenderEmail' => 'email@comprador.com.br',
+)) - end {1}C8E4BF80F6F6043DD4584FB9FA419BEB 
+{2020/02/05 00:02:25} [Info] PagSeguroPaymentService.Register(PagSeguroRequest: array (
+  'Reference' => 'REF123',
+  'SenderEmail' => 'email@comprador.com.br',
+)) - begin 
+{2020/02/05 00:02:27} [Info] PagSeguroPaymentService.Register(PagSeguroRequest: array (
+  'Reference' => 'REF123',
+  'SenderEmail' => 'email@comprador.com.br',
+)) - end {1}B1B3D12A9393C42BB4CD2F9ECF868580 
+{2020/02/05 00:06:23} [Info] PagSeguroPaymentService.Register(PagSeguroRequest: array (
+  'Reference' => 'REF123',
+  'SenderEmail' => 'email@comprador.com.br',
+)) - begin 
+{2020/02/05 00:06:24} [Info] PagSeguroPaymentService.Register(PagSeguroRequest: array (
+  'Reference' => 'REF123',
+  'SenderEmail' => 'email@comprador.com.br',
+)) - end {1}4F70700C6363F9C9946ACFA81F26DD92 

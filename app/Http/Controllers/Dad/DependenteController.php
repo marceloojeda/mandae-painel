@@ -72,6 +72,12 @@ class DependenteController extends Controller
         return redirect('dad');
     }
 
+    public function getConta($idDependente) {
+        $dependente = $this->dependenteRepo->getById($idDependente);
+
+        return response()->json($dependente->conta);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

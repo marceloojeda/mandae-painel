@@ -5,16 +5,23 @@ namespace App\Http\Controllers\Dad;
 use App\Responsavel;
 use App\Estabelecimento;
 use App\Dependente;
+use App\Lancamento;
+use App\AsaasTransacao;
+use FiltroViewModel;
 use Illuminate\Http\Request;
 
 class ResponsavelController extends Controller
 {
     private $responsavelRepo;
     private $dependenteRepo;
+    private $lancamentoRepo;
 
     public function __construct(){
         $this->responsavelRepo = new Responsavel();
         $this->dependenteRepo = new Dependente();
+        $this->lancamentoRepo = new Lancamento();
+
+        $this->middleware('auth')->except('create');
     }
 
 
@@ -86,9 +93,15 @@ class ResponsavelController extends Controller
      * @param  \App\Responsavel  $responsavel
      * @return \Illuminate\Http\Response
      */
-    public function edit(Responsavel $responsavel)
+    public function edit($id, Request $request)
     {
-        //
+        
+        $id = $this->getIdResponsavel();
+        $responsavel = $this->responsavelRepo->getById($id);
+
+        $usuario = Auth()->user();
+
+        return view('dad.edit', compact('responsavel', 'usuario'));
     }
 
     /**
@@ -98,9 +111,11 @@ class ResponsavelController extends Controller
      * @param  \App\Responsavel  $responsavel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Responsavel $responsavel)
+    public function update($id, Request $request)
     {
-        //
+        $this->responsavelRepo->atualizar($id, $request);
+
+        return redirect('/dad');
     }
 
     /**
@@ -133,5 +148,50 @@ class ResponsavelController extends Controller
         $idSelecionado = $idDependente;
 
         return view('dad.childs.history', compact('filhos', 'dependente', 'pedidos', 'idSelecionado'));
+    }
+
+    public function extratoFinanceiro(Request $request) {
+
+        $filtroVM = new FiltroViewModel();
+        $filtroVM->idEstabelecimento = $this->getIdEstabelecimento();
+
+        $lancamentos = $this->lancamentoRepo->extrato($filtroVM);
+
+        
+    }
+
+    public function comprar(Request $request) {
+
+        $responsavel = $this->responsavelRepo->getById($this->getIdResponsavel());
+
+        $filhos = $this->dependenteRepo->getByResponsavel($this->getIdResponsavel());
+        $dependentes = [];
+        foreach ($filhos as $filho) {
+
+            $nomePartes = explode(' ', $filho->nome);
+            $dependentes[] = array(
+                'id' => $filho->id,
+                'nome' => $filho->nome,
+                'saudacao' => $nomePartes[0],
+                'serie' => $filho->serie,
+                'saldo' => $filho->conta->saldo
+            );
+        }
+        $saldo = $dependentes ? $dependentes[0]['saldo'] : 0;
+
+        $user = Auth()->user();
+
+        $responsavel->email = $user->email;
+
+        return view('dad.comprar', compact('dependentes', 'saldo', 'responsavel'));
+    }
+
+    public function confirmaSolicitacaoCompra(Request $request) {
+
+        $model = AsaasTransacao::create($request->except('fine', 'interest', 'discount'));
+
+        $this->responsavelRepo->updateAsaasCustomer($request->customer, $this->getIdResponsavel());
+
+        return response()->json($model);
     }
 }

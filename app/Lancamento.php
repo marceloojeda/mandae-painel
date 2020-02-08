@@ -3,7 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 use App\Conta;
+use App\FiltroViewModel;
 
 class Lancamento extends Model
 {
@@ -39,5 +41,15 @@ class Lancamento extends Model
         $model->save();
 
         Conta::atualizarSaldo($idConta, $total, false);
+    }
+
+    public function extrato(FiltroViewModel $filtro) {
+
+        $query = DB::table('lancamentos')
+            ->where('estabelecimento_id', $filtro->idEstabelecimento);
+
+        $query->orderBy('id', 'desc');
+
+        return $query->paginate();
     }
 }

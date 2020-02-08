@@ -8,3 +8,13 @@ META:
 
 
 ssh -i icantina.pem ubuntu@52.67.41.167
+
+Create SSL in Nginx
+
+tutorial: https://www.youtube.com/watch?v=X3Pr5VATOyA
+cd /etc/nginx/conf.d/
+cp api.icantina.biz.conf api.icantina.biz.conf.bak
+ls
+mkdir /etc/nginx/ssl
+chmo 700 /etc/nginx/ssl
+open ssl req -x509 -nodes 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/api.icantina.key -out /etc/nginx/ssl/api.icantina.crt

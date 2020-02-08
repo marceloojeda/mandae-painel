@@ -47,14 +47,24 @@ Route::namespace('Dad')->group(function () {
     Route::get('/dad', 'ResponsavelController@index')->middleware('auth');
     Route::get('/dad/create', 'ResponsavelController@create');
     Route::get('/dad/shopping/{idDependente}', 'ResponsavelController@verCompras');
-    Route::post('/dad', 'ResponsavelController@store');
-
+    Route::get('/dad/credits', 'ResponsavelController@comprar');
     Route::get('/dad/childs', 'DependenteController@index')->middleware('auth');
     Route::get('/dad/childs/create', 'DependenteController@create')->middleware('auth');
     Route::get('/dad/childs/{id}', 'DependenteController@edit')->middleware('auth');
+    Route::get('/dad/{id}', 'ResponsavelController@edit')->name('dad.edit')->middleware('auth');
+
+    Route::post('/dad', 'ResponsavelController@store');
+    Route::put('/dad/{id}', 'ResponsavelController@update');
+
     Route::post('/dad/childs', 'DependenteController@store')->middleware('auth');
     Route::put('/dad/childs/{id}', 'DependenteController@update')->middleware('auth');
 
     // endpoints usados pelo app, pelo dependente
     Route::get('/dad/childs/pedidos/{id}', 'DependenteController@showPedido');
+
+    // endpoints relacionados à compra de creditos
+    Route::post('/dad/sale', 'ResponsavelController@confirmaSolicitacaoCompra');
+
+    // saldo do dependente
+    Route::get('/dad/conta/{idDependente}', 'DependenteController@getConta')->middleware('auth');
 });

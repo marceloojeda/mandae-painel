@@ -20,6 +20,11 @@ class Dependente extends Model
             'data_nascimento', 'sexo', 'senha', 'ativo'];
     }
 
+    public function conta() {
+
+        return $this->hasOne('App\Conta', 'dependente_id', 'id');
+    }
+
     public function cadastrar($request, $idResponsavel, $idEstabelecimento){
         $model = new Dependente();
 

@@ -125,4 +125,9 @@ class PedidoController extends Controller
         
         return response()->json($resposta);
     }
+
+    public function extratoFinanceiro(Request $request) {
+
+
+    }
 }

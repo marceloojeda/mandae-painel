@@ -16,18 +16,37 @@
 
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/canteen-app.js') }}" defer></script>
+    <script src="{{ asset('js/dad-app.js') }}" defer></script>
     <script src="{{ asset('js/jquery.number.min.js') }}" defer></script>
     <script src="{{ asset('js/jquery.mask.min.js') }}" defer></script>
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.5.0/css/bootstrap4-toggle.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+
+    <style>
+        .my-card{
+            position:absolute;
+            left:40%;
+            top:-20px;
+            border-radius:50%;
+        }
+
+        .img-credito{
+            width: 180px !important;
+            height: 180px !important;
+            margin: 0 auto;
+        }
+        .bg-botao-comprar{
+            background-color: #e6e6fa;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -48,15 +67,15 @@
                         </li>
 
                         <li class="nav-item ml-4">
-                            <a class="nav-link" href="/dad/shopping/0">Compras</a>
+                            <a class="nav-link" href="/dad/shopping/0">Compras realizadas</a>
                         </li>
 
-                        <li class="nav-item ml-4">
+                        {{-- <li class="nav-item ml-4">
                             <a class="nav-link" href="/dad/financial">Financeiro</a>
-                        </li>
+                        </li> --}}
 
                         <li class="nav-item ml-4">
-                            <a class="nav-link" href="/dad/credits">Créditos</a>
+                            <a class="nav-link" href="/dad/credits">Inserir Créditos</a>
                         </li>
                         
                     </ul>
@@ -81,7 +100,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown2">
 
-                                    <a class="dropdown-item" href="{{ route('logout') }}">Editar perfil</a>
+                                    <a class="dropdown-item" href="/dad/0">Editar perfil</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}">Configurações</a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"

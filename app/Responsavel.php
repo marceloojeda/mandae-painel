@@ -47,14 +47,21 @@ class Responsavel extends Model
 		return $model->id;
 	}
 
-    public function atualizar($request){
+    public function atualizar($id, $request){
 
-        $model = $this->getById($request->idResponsavel);
+        $model = $this->getById($id);
 
-        if(isset($request->nome)) $model->nome = $request->nome;
-        if(isset($request->telefone)) $model->telefone = $request->telefone;
-        if(isset($request->imagem)) $model->imagem = $request->imagem;
-        if(isset($request->ativo)) $model->ativo = $request->ativo;
+        if(!empty($request->nome)) $model->nome = $request->nome;
+        if(!empty($request->telefone)) $model->telefone = Formatacao::somenteNumeros($request->telefone);
+        if(!empty($request->celular)) $model->celular = Formatacao::somenteNumeros($request->celular);
+        if(!empty($request->cpf)) $model->cpf = Formatacao::somenteNumeros($request->cpf);
+        if(!empty($request->cep)) $model->cep = Formatacao::somenteNumeros($request->cep);
+        if(!empty($request->endereco)) $model->rua = $request->endereco;
+        if(!empty($request->numero)) $model->numero = $request->numero;
+        if(!empty($request->complemento)) $model->complemento = $request->complemento;
+        if(!empty($request->bairro)) $model->bairro = $request->bairro;
+        if(!empty($request->cidade)) $model->cidade = $request->cidade;
+        if(!empty($request->uf)) $model->uf = $request->uf;
 
         $model->save();
 
@@ -79,5 +86,17 @@ class Responsavel extends Model
 
     public static function getByUserId($idUser){
 		return Responsavel::where('user_id', $idUser)->firstOrFail();
-	}
+    }
+    
+    public function updateAsaasCustomer($asaasCustomerId, $idResponsavel){
+        $model = Responsavel::where('id', $idResponsavel)->first();
+
+        if(!$model || empty($model->asaas_customer_id)) {
+            return;
+        }
+
+        $model->asaas_customer_id = $asaasCustomerId;
+
+        $model->save();
+    }
 }
