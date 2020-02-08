@@ -34,8 +34,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/",
-            "PagSeguro\\": "pagseguro/",
+            "App\\": "app/"
         },
         "classmap": [
             "database/seeds",
