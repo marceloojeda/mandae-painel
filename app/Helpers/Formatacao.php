@@ -168,5 +168,45 @@ class Formatacao
         } 
     
         return $randomString . "@teste.com"; 
-    } 
+    }
+    
+    public static function sendRequest($metodo = 'GET', $url = '', $strRowBody = '', $arrHeader = array())
+    {
+
+        $response = '';
+        $ch = curl_init();
+        switch ($metodo) {
+            case 'POST':
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $arrHeader);
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $strRowBody);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 90);
+
+                $response = curl_exec($ch);
+
+                curl_close($ch);
+
+                break;
+
+            case 'GET':
+
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $arrHeader);
+                curl_setopt($ch, CURLOPT_HEADER, 0);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 90);
+                curl_setopt($ch, CURLOPT_URL, $url);
+
+                $response = curl_exec($ch);
+
+                curl_close($ch);
+
+                break;
+
+        }
+
+        return $response;
+    }
 }
