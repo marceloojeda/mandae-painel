@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers\Dad;
 
+use Illuminate\Http\Request;
+use App\Helpers\Formatacao;
 use App\Responsavel;
 use App\Estabelecimento;
 use App\Dependente;
-use Illuminate\Http\Request;
-use PagSeguroPaymentRequest;
-use PagSeguroShippingType;
-use PagSeguroConfig;
-use PagSeguroServiceException;
 
 class PagSeguroController extends Controller
 {
@@ -23,12 +20,12 @@ class PagSeguroController extends Controller
 
     public function gerarTransacao(Request $request){
 
-        if(empty($request->valor)) {
-
-            // $this->session->flash('')
-            return redirect('dad/credits');
-        }
-
+        $arrHeaders = ['access_token' => $request->token];
         
+        $strBody = '{"name": "João Paulo Pretti","cpfCnpj": null,"email": "pai@teste.com","phone": "34999603011","mobilePhone": "","addressNumber": null,"complement": null,"postalCode": null,"externalReference": 1}';
+        
+        $response = Formatacao::sendRequest('POST', $request->url, $strBody, $arrHeaders);
+
+        return response($response);
     }
 }
