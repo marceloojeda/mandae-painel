@@ -20,6 +20,19 @@
     <script src="{{ asset('js/jquery.number.min.js') }}" defer></script>
     <script src="{{ asset('js/jquery.mask.min.js') }}" defer></script>
 
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        // Load the Visualization API and the chart package.
+        google.load('visualization', '1', {'packages':['corechart']});
+
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.setOnLoadCallback(drawChart_google_user_count);
+                    $(window).resize(function(){
+                        drawChart_google_user_count();
+                    })                                  
+        </script>
+
     <!-- Fonts -->
     
 

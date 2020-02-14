@@ -29,9 +29,12 @@ class Pedido extends Model
     }
 
     public function listarPedidosAbertos($idEstabelecimento){
+
+        $dataAtual = date('Y-m-d 00:00:00');
         return \DB::table('pedidosView')
             ->where('idEstabelecimento', $idEstabelecimento)
             ->where('status', \Config::get('constants.STATUS_PEDIDO.ABERTO'))
+            ->where('data', '>=', $dataAtual)
             ->get();
     }
 
@@ -56,5 +59,20 @@ class Pedido extends Model
         $model->status = $status;
 
         $model->save();
+    }
+
+    public function validarConfirmacao($id) {
+        $pedido = $this->getById($id);
+
+        $dataAtual = date('Y-m-d 00:00:00');
+        if($dataAtual > $pedido->created_at) {
+            return "Pedido vencido";
+        }
+
+        if($pedido->total > $pedido->conta->saldo) {
+            return sprintf("Saldo atual (R$ %s), insuficiente para confirmar esse pedido.", Formatacao::formataNumero($pedido->conta->saldo));
+        }
+
+        return '';
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Helpers\Formatacao;
+use Config;
 use App\User;
 use App\Conta;
 
@@ -31,9 +32,9 @@ class Dependente extends Model
         if(isset($idEstabelecimento)) $model->estabelecimento_id = $idEstabelecimento;
         if(isset($idResponsavel)) $model->responsavel_id = $idResponsavel;
 
-        if(isset($request->senha)) {
-            $model->user_id = $this->cadastrarUsuario($request);
-        }
+        // if(isset($request->senha)) {
+        //     $model->user_id = $this->cadastrarUsuario($request);
+        // }
 
         if(isset($request->nome)) $model->nome = $request->nome;
         if(isset($request->telefone)) $model->telefone = Formatacao::somenteNumeros($request->telefone);
@@ -41,13 +42,16 @@ class Dependente extends Model
         if(isset($request->serie)) $model->serie = $request->serie;
         if(isset($request->sexo)) $model->sexo = $request->sexo;
         if(isset($request->dataNascimento)) $model->data_nascimento = Formatacao::toDate($request->dataNascimento);
-        if(isset($request->senha)) $model->senha = Hash::make($request->senha);
+        if(isset($request->senha)) $model->senha = $request->senha;
 
         $model->ativo = true;
 
         $model->save();
 
-        $this->cadastrarConta($model);
+        $limite = empty($request->limite) ? 0 : Formatacao::formataNumero($request->limite, 2, Config::get('constants.DATABASE'));
+
+        $contaRepo = new Conta();
+        $contaRepo->cadastrar($model, $limite);
 
         return $model;
     }
@@ -67,11 +71,6 @@ class Dependente extends Model
 
 		return $model->id;
     }
-    
-    private function cadastrarConta($model){
-        $contaRepo = new Conta();
-        $contaRepo->cadastrar($model);
-    }
 
     public function atualizar($request){
 
@@ -87,6 +86,14 @@ class Dependente extends Model
         // if(isset($request->ativo)) $model->ativo = Hash::make($request->senha);
 
         $model->save();
+
+        if(!empty($request->limite)) {
+
+            $limite = Formatacao::formataNumero($request->limite, 2, Config::get('constants.DATABASE'));
+
+            $contaRepo = new Conta();
+            $contaRepo->atualizarLimite($model->id, $limite);
+        }
 
         return $model;
     }

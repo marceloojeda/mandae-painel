@@ -63,7 +63,8 @@ Route::namespace('Dad')->group(function () {
     Route::get('/dad/childs/pedidos/{id}', 'DependenteController@showPedido');
 
     // endpoints relacionados à compra de creditos
-    Route::post('/dad/sale', 'ResponsavelController@confirmaSolicitacaoCompra');
+    Route::get('/sale/checkout', 'AsaasController@checkout');
+    Route::post('/sale/confirm', 'AsaasController@confirm');
 
     // saldo do dependente
     Route::get('/dad/conta/{idDependente}', 'DependenteController@getConta')->middleware('auth');

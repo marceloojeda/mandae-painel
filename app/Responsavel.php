@@ -19,6 +19,10 @@ class Responsavel extends Model
     	$this->fillable = ['estabelecimento_id', 'user_id', 'nome', 'telefone', 'imagem', 'ativo'];
     }
 
+    public function user() {
+        return $this->hasOne('App\User', 'id', 'user_id');
+    }
+
     public function cadastrar($request){
         $model = new Responsavel();
 
@@ -56,7 +60,7 @@ class Responsavel extends Model
         if(!empty($request->celular)) $model->celular = Formatacao::somenteNumeros($request->celular);
         if(!empty($request->cpf)) $model->cpf = Formatacao::somenteNumeros($request->cpf);
         if(!empty($request->cep)) $model->cep = Formatacao::somenteNumeros($request->cep);
-        if(!empty($request->endereco)) $model->rua = $request->endereco;
+        if(!empty($request->rua)) $model->rua = $request->rua;
         if(!empty($request->numero)) $model->numero = $request->numero;
         if(!empty($request->complemento)) $model->complemento = $request->complemento;
         if(!empty($request->bairro)) $model->bairro = $request->bairro;

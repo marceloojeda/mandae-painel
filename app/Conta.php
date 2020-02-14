@@ -16,11 +16,11 @@ class Conta extends Model
     	$this->fillable = ['dependente_id', 'saldo', 'limite_diario'];
     }
 
-    public function cadastrar(Dependente $dependente){
+    public function cadastrar(Dependente $dependente, $limite){
         $model = new Conta();
         $model->dependente_id = $dependente->id;
         $model->saldo = 0;
-        $model->limite_diario = 0;
+        $model->limite_diario = $limite;
 
         $model->save();
 
@@ -40,6 +40,15 @@ class Conta extends Model
         } else {
             $conta->saldo += $valor;
         }
+
+        $conta->save();
+    }
+
+    public static function atualizarLimite($idDependente, float $valor){
+
+        $conta = Conta::where('dependente_id', $idDependente)->firstOrFail();
+
+        $conta->limite_diario = $valor;
 
         $conta->save();
     }

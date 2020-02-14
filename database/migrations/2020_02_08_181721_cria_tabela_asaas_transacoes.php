@@ -14,7 +14,7 @@ class CriaTabelaAsaasTransacoes extends Migration
     public function up()
     {
         Schema::create('asaas_transacoes', function (Blueprint $table) {
-            $table->string('id');
+            $table->string('id', 50);
             $table->date('dateCreated');
             $table->string('customer');
             $table->string('subscription')->nullable();
@@ -40,6 +40,8 @@ class CriaTabelaAsaasTransacoes extends Migration
             $table->boolean('deleted')->nullable();
             $table->boolean('postalService')->nullable();
             $table->boolean('anticipated')->nullable();
+
+            $table->primary('id');
         });
     }
 

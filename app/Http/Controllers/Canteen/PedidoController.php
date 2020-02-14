@@ -111,6 +111,15 @@ class PedidoController extends Controller
             'msgErro' => ''
         );
 
+        $validacao = $this->pedidosRepo->validarConfirmacao($id);
+        if(!empty($validacao)) {
+
+            $resposta['erro'] = true;
+            $resposta['msgErro'] = $validacao;
+
+            return response()->json($resposta);
+        }
+
         try {
             $pedido = $this->pedidosRepo->getById($id);
 
@@ -119,6 +128,7 @@ class PedidoController extends Controller
             $this->pedidosRepo->atualizarStatus($id, Config::get('constants.STATUS_PEDIDO.CONFIRMADO'));
 
         } catch (Exception $e) {
+            
             $resposta['erro'] = true;
             $resposta['msgErro'] = "Não foi possível realizar a baixa do pedido: " . $e->getMessage();
         }
@@ -127,7 +137,6 @@ class PedidoController extends Controller
     }
 
     public function extratoFinanceiro(Request $request) {
-
 
     }
 }

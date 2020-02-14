@@ -25,9 +25,11 @@
                             <tr>
                                 <th> #</th>
                                 <th> Nome</th>
-                                <th class="text-center"> Telefone</th>
+                                <th> Telefone</th>
                                 <th> Série</th>
-                                <th class="text-center"> Nascimento</th>
+                                <th class="text-right"> Limite diário</th>
+                                <th class="text-right"> Saldo</th>
+                                <th></th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -41,11 +43,15 @@
                                     <tr onclick="openForm({{ $child->id }}, 'dependente')" style="cursor: pointer">
                                         <td> {{ $child->id }} </td>
                                         <td> {{ $child->nome }} </td>
-                                        <td class="text-center"> {{ \App\Helpers\Formatacao::formataCelular($child->telefone) }} </td>
+                                        <td> {{ \App\Helpers\Formatacao::formataCelular($child->telefone) }} </td>
                                         <td> {{ $child->serie }} </td>
-                                        <td class="text-center"> {{ \App\Helpers\Formatacao::toDateBr($child->data_nascimento) }} </td>
+                                        <td class="text-right">{{ \App\Helpers\Formatacao::formataNumero($child->limite) }}</td>
+                                        <td class="text-right">{{ \App\Helpers\Formatacao::formataNumero($child->saldo) }}</td>
                                         <td class="text-right">
-                                        <a class="btn btn-secondary btn-sm" href="/dad/childs/{{ $child->id }}">Alterar</a>
+                                            <a class="btn btn-light btn-sm" href="/dad/childs/{{ $child->id }}">Atualizar Cadastro</a>
+                                        </td>
+                                        <td class="text-right">
+                                            <a class="btn btn-primary btn-sm" href="/dad/credits">+ Créditos</a>
                                         </td>
                                     </tr>
                                 @endforeach

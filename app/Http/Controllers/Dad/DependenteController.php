@@ -28,6 +28,12 @@ class DependenteController extends Controller
     public function index(Request $request)
     {
         $dependentes = $this->dependenteRepo->getByResponsavel($this->getIdResponsavel());
+
+        foreach ($dependentes as $k => $dependente) {
+            $dependentes[$k]->saldo = $dependente->conta->saldo;
+            $dependentes[$k]->limite = $dependente->conta->limite_diario;
+        }
+        
         return view("dad.childs.index", compact("dependentes"));
     }
 
@@ -69,7 +75,7 @@ class DependenteController extends Controller
 
         $model = $this->dependenteRepo->cadastrar($request, $idResponsavel, $idEstabelecimento);
 
-        return redirect('dad');
+        return redirect('dad/childs');
     }
 
     public function getConta($idDependente) {
@@ -87,6 +93,7 @@ class DependenteController extends Controller
     public function edit($id)
     {
         $dependente = $this->dependenteRepo->getById($id);
+        $dependente->limite = $dependente->conta->limite_diario;
 
         return view("dad.childs.edit", compact("dependente"));
     }
@@ -146,7 +153,7 @@ class DependenteController extends Controller
 
         $model = $this->dependenteRepo->atualizar($request);
 
-        return redirect('dad');
+        return redirect('dad/childs');
     }
 
     /**

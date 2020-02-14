@@ -32,7 +32,10 @@ class ResponsavelController extends Controller
      */
     public function index()
     {
-        return view("dad.index");
+
+        $responsavel = $this->responsavelRepo->getById($this->getIdResponsavel());
+
+        return view("dad.index", compact('responsavel'));
     }
 
     /**
@@ -163,6 +166,17 @@ class ResponsavelController extends Controller
     public function comprar(Request $request) {
 
         $responsavel = $this->responsavelRepo->getById($this->getIdResponsavel());
+
+        //redireciona responsavel para completar cadastro
+        if(empty($responsavel->cpf)
+            || empty($responsavel->rua)
+            || empty($responsavel->numero)
+            || empty($responsavel->cep)
+        ) {
+            $request->session()->put('status', 'Para realizar compras pelo site, você deve completar seu cadastro');
+
+            return redirect('dad/' . $this->getIdResponsavel());
+        }
 
         $filhos = $this->dependenteRepo->getByResponsavel($this->getIdResponsavel());
         $dependentes = [];

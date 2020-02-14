@@ -2,10 +2,6 @@
 
 @section('content')
 
-<input type="hidden" id="objResponsavel" value="{{ json_encode($responsavel) }}">
-<input type="hidden" id="ASAAS_URL" value="{{ env('ASAAS_URL') }}">
-<input type="hidden" id="ASAAS_TOKEN" value="{{ env('ASAAS_TOKEN') }}">
-
 @if (count($dependentes) > 1)
 <div class="row">
     <div class="col-md-6 offset-md-3">
@@ -43,7 +39,7 @@
                     <p class="card-text">30 reais em créditos <br><small>3 a 4 dias de lanche</small></p>
                 </div>
                 <div class="card-block text-center mt-4 pt-2 pb-2 bg-botao-comprar" style="width: 100%">
-                    <button class="btn btn-success" type="button" onclick="comprar(30.00)">
+                    <button class="btn btn-success" type="button" onclick="comprar(30.00, 3.00)">
                         <span class="fa fa-cart-arrow-down"></span> Comprar
                     </button>
                 </div>
@@ -58,7 +54,7 @@
                     <p class="card-text">50 reais em créditos <br><small>uma semana de lanche</small></p>
                 </div>
                 <div class="card-block text-center mt-4 pt-2 pb-2 bg-botao-comprar">
-                    <button class="btn btn-success">
+                    <button class="btn btn-success" type="button" onclick="comprar(50.00, 3.00)">
                         <span class="fa fa-cart-arrow-down"></span> Comprar
                     </button>
                 </div>
@@ -73,7 +69,7 @@
                     <p class="card-text">100 reais em créditos <br><small>duas semanas de lanche</small></p>
                 </div>
                 <div class="card-block text-center mt-4 pt-2 pb-2 bg-botao-comprar">
-                    <button class="btn btn-success">
+                    <button class="btn btn-success" type="button" onclick="comprar(100.00, 5)">
                         <span class="fa fa-cart-arrow-down"></span> Comprar
                     </button>
                 </div>
@@ -91,7 +87,7 @@
                     <p class="card-text">200 reais em créditos <br><small>um mês de lanche</small></p>
                 </div>
                 <div class="card-block text-center mt-4 pt-2 pb-2 bg-botao-comprar">
-                    <button class="btn btn-success">
+                    <button class="btn btn-success" type="button" onclick="comprar(30.00, 8.00)">
                         <span class="fa fa-cart-arrow-down"></span> Comprar
                     </button>
                 </div>
@@ -106,7 +102,7 @@
                     <p class="card-text">300 reais em créditos <br><small>dois filhos na mesma escola?</small></p>
                 </div>
                 <div class="card-block text-center mt-4 pt-2 pb-2 bg-botao-comprar">
-                    <button class="btn btn-success">
+                    <button class="btn btn-success" type="button" onclick="comprar(30.00, 10.50)">
                         <span class="fa fa-cart-arrow-down"></span> Comprar
                     </button>
                 </div>
@@ -121,7 +117,7 @@
                     <p class="card-text">400 reais em créditos <br><small>lanche garantido pra turma toda.. ;)</small></p>
                 </div>
                 <div class="card-block text-center mt-4 pt-2 pb-2 bg-botao-comprar">
-                    <button class="btn btn-success">
+                    <button class="btn btn-success" type="button" onclick="comprar(30.00, 11.56)">
                         <span class="fa fa-cart-arrow-down"></span> Comprar
                     </button>
                 </div>
@@ -130,5 +126,4 @@
     
 </div>
 
-@include('dad/childs/pedido-detalhe')
 @endsection
