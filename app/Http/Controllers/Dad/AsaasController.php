@@ -188,7 +188,7 @@ class AsaasController extends Controller
                 return response()->json($retorno);
             }
 
-            if(!$recargaCredito = $this->recargaCreditoRepo->getByTransacaoId($request->payment->id)) {
+            if(!$recargaCredito = $this->recargaCreditoRepo->getByTransacaoId($request->payment['id'])) {
 
                 $retorno['erro'] = true;
                 $retorno['mensagem'] = sprintf("Nenhuma recarga de crédito com transacao_id = %s foi encontrado.", $request->id);
@@ -196,7 +196,7 @@ class AsaasController extends Controller
                 return response()->json($retorno);
             }
 
-            if(!empty($erroFaturar = $this->recargaCreditoRepo->confirmarRecarga($request->payment->id))) {
+            if(!empty($erroFaturar = $this->recargaCreditoRepo->confirmarRecarga($request->payment['id']))) {
                 $retorno['erro'] = true;
                 $retorno['mensagem'] = $erroFaturar;
 
@@ -204,7 +204,7 @@ class AsaasController extends Controller
             }
 
             $arrStatusPagamento = ['RECEIVED','CONFIRMED','RECEIVED_IN_CASH'];
-            if(in_array($request->payment->status, $arrStatusPagamento)) {
+            if(in_array($request->payment['status'], $arrStatusPagamento)) {
 
                 $dependente = $this->dependenteRepo->getById($recargaCredito->dependente_id);
 
