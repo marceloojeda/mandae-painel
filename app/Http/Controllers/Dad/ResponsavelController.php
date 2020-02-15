@@ -20,16 +20,9 @@ class ResponsavelController extends Controller
         $this->responsavelRepo = new Responsavel();
         $this->dependenteRepo = new Dependente();
         $this->lancamentoRepo = new Lancamento();
-
-        $this->middleware('auth')->except('create');
     }
 
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
 
@@ -38,12 +31,7 @@ class ResponsavelController extends Controller
         return view("dad.index", compact('responsavel'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(Request $request)
     {
         $estabelecimentos = Estabelecimento::orderBy('nome', 'desc')->get();
 
@@ -76,7 +64,7 @@ class ResponsavelController extends Controller
 
         $model = $this->responsavelRepo->cadastrar($request);
 
-        return redirect('dad');
+        return redirect('/dad');
     }
 
     /**
@@ -173,7 +161,7 @@ class ResponsavelController extends Controller
             || empty($responsavel->numero)
             || empty($responsavel->cep)
         ) {
-            $request->session()->put('status', 'Para realizar compras pelo site, você deve completar seu cadastro');
+            $request->session()->flash('complete_cad_responsavel', 'Para realizar compras pelo site, você deve completar seu cadastro');
 
             return redirect('dad/' . $this->getIdResponsavel());
         }

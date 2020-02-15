@@ -11,6 +11,9 @@
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+    <script src="{{ asset('js/jquery.mask.min.js') }}" defer></script>
+    <script src="{{ asset('js/canteen-app.js') }}" defer></script>
 </head>
 <body>
     <form action="/dad" method="POST">
@@ -21,41 +24,43 @@
                     <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
                     <h3>Bem vindo</h3>
                     <p>Tenha total <b>controle financeiro</b> com os lanches escolares do seu filho!</p>
-                    <input type="submit" name="" value="Login"/><br/>
+                    <a href="/home" class="btn btn-sm btn-secondary">Login</a>
+                    <br/>
                 </div>
                 <div class="col-md-9 register-right">
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <h3  class="register-heading">Cadastro do responsável</h3>
                     <div class="row register-form">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                            <input type="text" class="form-control" name="nome" placeholder="Nome completo *" value="{{ old('nome') }}" />
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="telefone" placeholder="Telefone" value="{{ old('telefone') }}" />
-                            </div>
-                            <div class="form-group">
-                                <input type="email" class="form-control" name="email" placeholder="Email *" value="{{ old('email') }}" />
-                            </div>
 
+                        <div class="form-group col-6">
+                            <input type="text" class="form-control" name="nome" placeholder="Nome completo *" value="{{ old('nome') }}" required />
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <select class="form-control" name="idEstabelecimento">
-                                    <option class="hidden"  selected disabled>Escola do dependente</option>
-                                    @foreach ($estabelecimentos as $cantina)
-                                        <option value="{{ $cantina->id }}">{{ $cantina->escola }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" name="senha" placeholder="Senha *" value="" />
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" name="senha_confirmation" placeholder="Confirme a senha *" value="" />
-                            </div>
-                            <input type="submit" class="btnRegister"  value="Register"/>
+                        <div class="form-group col-6">
+                            <select class="form-control" name="idEstabelecimento" required>
+                                <option class="hidden"  selected disabled>Escola do dependente</option>
+                                @foreach ($estabelecimentos as $cantina)
+                                    <option value="{{ $cantina->id }}">{{ $cantina->escola }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <input type="text" class="form-control celular" name="telefone" placeholder="Telefone" value="{{ old('telefone') }}" />
+                        </div>
+                        <div class="form-group col-6">
+                            <input type="email" class="form-control" name="email" placeholder="Email *" value="{{ old('email') }}" required />
+                        </div>
+
+                        <div class="form-group col-6">
+                            <input type="password" class="form-control" name="senha" placeholder="Senha *" value="" required />
+                        </div>
+                        <div class="form-group col-6">
+                            <input type="password" class="form-control" name="senha_confirmation" placeholder="Confirme a senha *" value="" required />
+                        </div>
+
+                        <div class="col-12">
+                            <input type="submit" class="btnRegister"  value="Cadastrar"/>
                         </div>
                     </div>
                 </div>

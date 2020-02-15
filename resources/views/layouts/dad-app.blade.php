@@ -66,7 +66,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/dad') }}">
-                    <img src="/img/logo1.jpg" width="120" height="60" alt="">
+                    <img src="/img/6.png" width="88" height="70" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -114,7 +114,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown2">
 
                                     <a class="dropdown-item" href="/dad/0">Editar perfil</a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}">Configurações</a>
+                                    {{-- <a class="dropdown-item" href="/password/reset/email">Alterar Senha</a> --}}
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

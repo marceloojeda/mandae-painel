@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Helpers\Formatacao;
 use App\User;
-use Config;
+use Illuminate\Support\Facades\Config;
 
 class Responsavel extends Model
 {
@@ -24,14 +24,15 @@ class Responsavel extends Model
     }
 
     public function cadastrar($request){
+        
         $model = new Responsavel();
 
         $model->user_id = $this->cadastrarUsuario($request);
 
-        if(isset($request->idEstabelecimento)) $model->estabelecimento_id = $request->idEstabelecimento;
-        if(isset($request->nome)) $model->nome = $request->nome;
-        if(isset($request->telefone)) $model->telefone = Formatacao::somenteNumeros($request->telefone);
-        if(isset($request->imagem)) $model->imagem = $request->imagem;
+        if(!empty($request->idEstabelecimento)) $model->estabelecimento_id = $request->idEstabelecimento;
+        if(!empty($request->nome)) $model->nome = $request->nome;
+        if(!empty($request->telefone)) $model->telefone = Formatacao::somenteNumeros($request->telefone);
+        if(!empty($request->imagem)) $model->imagem = $request->imagem;
         $model->ativo = true;
 
         $model->save();
