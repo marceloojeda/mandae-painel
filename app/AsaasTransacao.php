@@ -75,27 +75,34 @@ EOF;
 
     public function atualizar($request) {
 
-        if(empty($request->id)){
+        if(empty($request->payment)) {
+
+            return "Notificação não contém objeto do tipo payment";
+        }
+
+        $objeto = $request->payment;
+
+        if(empty($objeto->id)){
             return "Parametro id esperado";
         }
 
-        $model = $this->getById($request->id);
+        $model = $this->getById($objeto->id);
 
         if(!$model) {
             return "Cobrança não encontrada";
         }
 
-        $model->status = $request->status;
+        $model->status = $objeto->status;
 
-        if(in_array($request->status, $this->arrStatusPagamento)) {
+        if(in_array($objeto->status, $this->arrStatusPagamento)) {
 
-            $model->netValue = $request->netValue;
+            $model->netValue = $objeto->netValue;
 
-            if(!empty($request->originalDueDate)) $model->originalDueDate = $request->originalDueDate;
-            if(!empty($request->originalValue)) $model->originalValue = $request->originalValue;
-            if(!empty($request->confirmedDate)) $model->confirmedDate = $request->confirmedDate;
-            if(!empty($request->paymentDate)) $model->paymentDate = $request->paymentDate;
-            if(!empty($request->clientPaymentDate)) $model->clientPaymentDate = $request->clientPaymentDate;
+            if(!empty($objeto->originalDueDate)) $model->originalDueDate = $objeto->originalDueDate;
+            if(!empty($objeto->originalValue)) $model->originalValue = $objeto->originalValue;
+            if(!empty($objeto->confirmedDate)) $model->confirmedDate = $objeto->confirmedDate;
+            if(!empty($objeto->paymentDate)) $model->paymentDate = $objeto->paymentDate;
+            if(!empty($objeto->clientPaymentDate)) $model->clientPaymentDate = $objeto->clientPaymentDate;
         }
         
         $model->save();
