@@ -9,12 +9,10 @@ class RecargaCredito extends Model
 {
     protected $table;
     protected $fillable;
-    public $timestamps = false;
-    private $arrStatusPagamento;
 
     public function __construct(){
     	$this->table = "recargas_credito";
-        //$this->fillable = ['dateCreated', 'customer', 'subscription', 'telefone', 'imagem', 'ativo'];
+        $this->fillable = ['estabelecimento_id', 'responsavel_id', 'dependente_id', 'valor_credito', 'valor_taxa', 'faturado', 'transacao_id', 'data_baixa'];
     }
 
 
