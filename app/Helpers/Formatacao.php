@@ -184,7 +184,6 @@ class Formatacao
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
                 curl_setopt($ch, CURLOPT_TIMEOUT, 90);
-                curl_setopt($ch, CURLOPT_PORT , 8089);
 
                 $response = curl_exec($ch);
 
