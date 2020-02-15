@@ -80,29 +80,29 @@ EOF;
             return "Notificação não contém objeto do tipo payment";
         }
 
-        $objeto = json_encode($request->payment, true);
+        $objeto = $request->payment;
 
-        if(empty($objeto->id)){
-            return $objeto->id;
+        if(empty($objeto['id'])){
+            return $objeto['id'];
         }
 
-        $model = $this->getById($objeto->id);
+        $model = $this->getById($objeto['id']);
 
         if(!$model) {
             return "Cobrança não encontrada";
         }
 
-        $model->status = $objeto->status;
+        $model->status = $objeto['status'];
 
-        if(in_array($objeto->status, $this->arrStatusPagamento)) {
+        if(in_array($objeto['status'], $this->arrStatusPagamento)) {
 
-            $model->netValue = $objeto->netValue;
+            $model->netValue = $objeto['netValue'];
 
-            if(!empty($objeto->originalDueDate)) $model->originalDueDate = $objeto->originalDueDate;
-            if(!empty($objeto->originalValue)) $model->originalValue = $objeto->originalValue;
-            if(!empty($objeto->confirmedDate)) $model->confirmedDate = $objeto->confirmedDate;
-            if(!empty($objeto->paymentDate)) $model->paymentDate = $objeto->paymentDate;
-            if(!empty($objeto->clientPaymentDate)) $model->clientPaymentDate = $objeto->clientPaymentDate;
+            if(!empty($objeto['originalDueDate'])) $model->originalDueDate = $objeto['originalDueDate'];
+            if(!empty($objeto['originalValue'])) $model->originalValue = $objeto['originalValue'];
+            if(!empty($objeto['confirmedDate'])) $model->confirmedDate = $objeto['confirmedDate'];
+            if(!empty($objeto['paymentDate'])) $model->paymentDate = $objeto['paymentDate'];
+            if(!empty($objeto['clientPaymentDate'])) $model->clientPaymentDate = $objeto['clientPaymentDate'];
         }
         
         $model->save();
