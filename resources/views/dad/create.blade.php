@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Mandaê</title>
+    <title>iCantina</title>
 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link href="../css/register.css" rel="stylesheet" id="bootstrap-css">
@@ -24,90 +24,7 @@
                     <input type="submit" name="" value="Login"/><br/>
                 </div>
                 <div class="col-md-9 register-right">
-                <!-- 
-                <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Cantineiro</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Pai/Mãe</a>
-                    </li>
-                </ul>
-            -->
             <div class="tab-content" id="myTabContent">
-
-                <div class="tab-pane fade show" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <h3 class="register-heading">Cadastro do proprietário</h3>
-                    <div class="row register-form">
-                        <div class="col-12">
-                            @if (session('status'))
-                                <div class="alert alert-success" role="alert">
-                                    {{ session('status') }}
-                                </div>
-                            @endif
-
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="nome" placeholder="Nome completo *" value="{{ old('nome') }}" />
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="escola" placeholder="Escola/Instituição *" value="{{ old('escola') }}" />
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" name="senha" placeholder="Senha *" />
-                            </div>
-                                <!-- 
-                                <div class="form-group">
-                                    <div class="maxl">
-                                        <label class="radio inline"> 
-                                            <input type="radio" name="gender" value="male" checked>
-                                            <span> Male </span> 
-                                        </label>
-                                        <label class="radio inline"> 
-                                            <input type="radio" name="gender" value="female">
-                                            <span>Female </span> 
-                                        </label>
-                                    </div>
-                                </div>
-                            -->
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="email" class="form-control" name="email" placeholder="Seu email *" value="{{ old('email') }}" />
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="telefone" class="form-control" placeholder="Seu telefone" value="{{ old('telefone') }}"/>
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" name="senha_confirmation"  placeholder="Confirma a senha *" />
-                            </div>
-                                <!-- 
-                                <div class="form-group">
-                                    <select class="form-control">
-                                        <option class="hidden"  selected disabled>Please select your Sequrity Question</option>
-                                        <option>What is your Birthdate?</option>
-                                        <option>What is Your old Phone Number</option>
-                                        <option>What is your Pet Name?</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Enter Your Answer *" value="" />
-                                </div>
-                            -->
-                            <input type="submit" class="btnRegister"  value="Cadastrar"/>
-                        </div>
-                    </div>
-                </div>
                 <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <h3  class="register-heading">Cadastro do responsável</h3>
                     <div class="row register-form">
