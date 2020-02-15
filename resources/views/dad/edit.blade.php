@@ -88,7 +88,7 @@
 
                                 <div class="col-4 mb-2">
                                     <label>Endereço</label>
-                                    <input type="text" class="form-control" id="rua" name="endereco" value="{{ old('endereco') ? old('rua') : $responsavel->rua }}" readonly>
+                                    <input type="text" class="form-control" id="rua" name="rua" value="{{ old('rua') ? old('rua') : $responsavel->rua }}" readonly>
                                 </div>
 
                                 <div class="col-4 mb-2">
