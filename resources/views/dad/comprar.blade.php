@@ -2,7 +2,7 @@
 
 @section('content')
 
-@if (count($dependentes) > 1)
+@if (count($dependentes) > 0)
 <div class="row">
     <div class="col-md-6 offset-md-3">
         <table class="table">
