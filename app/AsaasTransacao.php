@@ -80,7 +80,7 @@ EOF;
             return "Notificação não contém objeto do tipo payment";
         }
 
-        $objeto = json_decode($request->payment, true);
+        $objeto = json_encode($request->payment, true);
 
         if(empty($objeto->id)){
             return $objeto->id;
