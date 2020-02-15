@@ -209,7 +209,7 @@ class AsaasController extends Controller
                 $dependente = $this->dependenteRepo->getById($recargaCredito->dependente_id);
 
                 $this->lancamentoRepo->lancarCredito(
-                    $this->getIdEstabelecimento(), 
+                    $dependente->estabelecimento_id, 
                     $dependente->conta->id,
                     $recargaCredito->valor_credito);
             }
