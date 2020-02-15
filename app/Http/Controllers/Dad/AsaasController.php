@@ -70,51 +70,65 @@ class AsaasController extends Controller
 
     public function confirm(Request $request) {
 
-        if(empty($request->input('valor'))) {
-
-            return redirect('/dad/credits');
-        }
-
-        $responsavel = $this->responsavelRepo->getById($this->getIdResponsavel());
-
         $retorno = array(
             'erro' => false,
             'mensagem' => '',
             'object' => null
         );
 
-        $asaasCustomerId = $responsavel->asaas_customer_id;
-        if(empty($asaasCustomerId)) {
-            if(!$asaasCustomerId = $this->criarCustomerAsaas($responsavel)) {
+        try{
+            if(empty($request->input('valor'))) {
+
+                return redirect('/dad/credits');
+            }
+
+            $responsavel = $this->responsavelRepo->getById($this->getIdResponsavel());        
+
+            $asaasCustomerId = $responsavel->asaas_customer_id;
+            if(empty($asaasCustomerId)) {
+
+                $arrCustomer = $this->criarCustomerAsaas($responsavel);
+                if($arrCustomer['erro']) {
+
+                    $retorno['erro'] = true;
+                    $retorno['mensagem'] = $arrCustomer['msg'];
+
+                    return response()->json($retorno);
+                }
+
+                $responsavel = $this->responsavelRepo->getById($this->getIdResponsavel());
+            }
+
+            $arrCobranca = $this->criarCobranca($responsavel, $request->input('valor'), $request->input('taxa'), $request->input('formaPagto'));
+
+            if($arrCobranca['erro']) {
                 $retorno['erro'] = true;
-                $retorno['mensagem'] = 'Opss! Algum problema ao gerar a transação na Asaas.';
+                $retorno['mensagem'] = $arrCobranca['msg'];
 
                 return response()->json($retorno);
             }
 
-            $responsavel = $this->responsavelRepo->getById($this->getIdResponsavel());
-        }
+            $cobranca = $arrCobranca['std'];
+            $this->recargaCreditoRepo->cadastrar(
+                $this->getIdEstabelecimento(), 
+                $this->getIdResponsavel(),
+                $request->idDependente, 
+                $cobranca, 
+                $request->taxa
+            );
 
-        if(!$cobranca = $this->criarCobranca($responsavel, $request->input('valor'), $request->input('taxa'), $request->input('formaPagto'))) {
+            $retorno['object'] = $cobranca;
+            $retorno['mensagem'] = sprintf("Transação %s gerada com sucesso", $cobranca->id);
+
+            return response()->json($retorno);
+
+        } catch(\Exception $e) {
+
             $retorno['erro'] = true;
-            $retorno['mensagem'] = 'Opss! Algum problema ao gerar a transação na Asaas.';
+            $retorno['mensagem'] = $e->getMessage();
 
             return response()->json($retorno);
         }
-
-
-        $this->recargaCreditoRepo->cadastrar(
-            $this->getIdEstabelecimento(), 
-            $this->getIdResponsavel(),
-            $request->idDependente, 
-            $cobranca, 
-            $request->taxa
-        );
-
-        $retorno['object'] = $cobranca;
-        $retorno['mensagem'] = sprintf("Transação %s gerada com sucesso", $cobranca->id);
-
-        return response()->json($retorno);
     }
 
     private function criarCustomerAsaas($responsavel) {
@@ -143,13 +157,25 @@ class AsaasController extends Controller
 
         $stdAsaasCustomer = json_decode($asaasCustomer);
 
+        $retorno = array(
+            'erro' => false,
+            'msg' => '',
+            'id' => ''
+        );
+
         if(!empty($stdAsaasCustomer->errors)) {
-            return false;
+            
+            $retorno['erro'] = true;
+            $retorno['msg'] = $stdAsaasCustomer->errors->description;
+            
+            return $retorno;
         }
 
         $this->responsavelRepo->updateAsaasCustomer($stdAsaasCustomer->id, $responsavel->id);
 
-        return $stdAsaasCustomer->id;
+        $retorno['id'] = $stdAsaasCustomer->id;
+
+        return $retorno;
     }
 
     private function criarCobranca($responsavel, $valorCredito, $taxa, $formaPagamento) {
@@ -188,13 +214,24 @@ class AsaasController extends Controller
 
         $stdAsaasPayment = json_decode($asaasPayment);
 
+        $retorno = array(
+            'erro' => false,
+            'msg' => '',
+            'std' => null
+        );
+
         if(!empty($stdAsaasPayment->errors)) {
-            return false;
+            
+            $retorno['erro'] = true;
+            $retorno['msg'] = $stdAsaasPayment->errors->description;
+            
+            return $retorno;
         }
 
         $this->asaasTransacaoRepo->cadastrar($stdAsaasPayment);
 
-        return $stdAsaasPayment;
+        $retorno['std'] = $stdAsaasPayment;
+        return $retorno;
     }
 
     public function notificacao(Request $request){
