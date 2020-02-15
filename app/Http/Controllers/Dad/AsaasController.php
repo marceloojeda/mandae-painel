@@ -222,6 +222,7 @@ class AsaasController extends Controller
 
             $retorno['erro'] = true;
             $retorno['mensagem'] = $e->getMessage();
+            $retorno['trace'] = $e->getTraceAsString();
 
             return response()->json($retorno);
         }
