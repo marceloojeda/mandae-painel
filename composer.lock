@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7236ac39762dfd3627f50876cb3ef43c",
+    "content-hash": "a2bd1da3a24a3ac5b4322ac6531c0974",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -3188,89 +3188,6 @@
             "time": "2019-10-24T08:53:34+00:00"
         },
         {
-            "name": "unaspbr/iugu-laravel",
-            "version": "1.3.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mateusfccp/iugu-laravel.git",
-                "reference": "8ca9e1c0c652e18dbe6fab54564f153c618df572"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mateusfccp/iugu-laravel/zipball/8ca9e1c0c652e18dbe6fab54564f153c618df572",
-                "reference": "8ca9e1c0c652e18dbe6fab54564f153c618df572",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0.33",
-                "unaspbr/iugu-php": "^0.1"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "unaspbr\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-3.0-only"
-            ],
-            "authors": [
-                {
-                    "name": "Mateus Felipe C. C. Pinto",
-                    "email": "mateusfccp@gmail.com"
-                }
-            ],
-            "description": "Wrapper do Iugu para ser usado no Laravel",
-            "time": "2019-06-24T17:43:47+00:00"
-        },
-        {
-            "name": "unaspbr/iugu-php",
-            "version": "0.1.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mateusfccp/iugu-php.git",
-                "reference": "346f5166e92b27da53561a0a0f48a6871cfd0176"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mateusfccp/iugu-php/zipball/346f5166e92b27da53561a0a0f48a6871cfd0176",
-                "reference": "346f5166e92b27da53561a0a0f48a6871cfd0176",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "ext-json": "*",
-                "ext-mbstring": "*",
-                "php": ">=7.0.33"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "unaspbr\\Iugu\\": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-3.0-only"
-            ],
-            "authors": [
-                {
-                    "name": "Mateus Felipe C. C. Pinto",
-                    "email": "mateusfccp@gmail.com",
-                    "homepage": "https://github.com/mateusfccp"
-                }
-            ],
-            "description": "Biblioteca PHP para abstrair a API do Iugu.",
-            "homepage": "https://iugu.com",
-            "keywords": [
-                "api",
-                "iugu",
-                "pagamentos"
-            ],
-            "time": "2019-07-16T17:51:35+00:00"
-        },
-        {
             "name": "vlucas/phpdotenv",
             "version": "v3.6.0",
             "source": {
@@ -5619,6 +5536,89 @@
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
             "time": "2019-06-13T22:48:21+00:00"
+        },
+        {
+            "name": "unaspbr/iugu-laravel",
+            "version": "1.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mateusfccp/iugu-laravel.git",
+                "reference": "8ca9e1c0c652e18dbe6fab54564f153c618df572"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mateusfccp/iugu-laravel/zipball/8ca9e1c0c652e18dbe6fab54564f153c618df572",
+                "reference": "8ca9e1c0c652e18dbe6fab54564f153c618df572",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.33",
+                "unaspbr/iugu-php": "^0.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "unaspbr\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Mateus Felipe C. C. Pinto",
+                    "email": "mateusfccp@gmail.com"
+                }
+            ],
+            "description": "Wrapper do Iugu para ser usado no Laravel",
+            "time": "2019-06-24T17:43:47+00:00"
+        },
+        {
+            "name": "unaspbr/iugu-php",
+            "version": "0.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mateusfccp/iugu-php.git",
+                "reference": "346f5166e92b27da53561a0a0f48a6871cfd0176"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mateusfccp/iugu-php/zipball/346f5166e92b27da53561a0a0f48a6871cfd0176",
+                "reference": "346f5166e92b27da53561a0a0f48a6871cfd0176",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=7.0.33"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "unaspbr\\Iugu\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Mateus Felipe C. C. Pinto",
+                    "email": "mateusfccp@gmail.com",
+                    "homepage": "https://github.com/mateusfccp"
+                }
+            ],
+            "description": "Biblioteca PHP para abstrair a API do Iugu.",
+            "homepage": "https://iugu.com",
+            "keywords": [
+                "api",
+                "iugu",
+                "pagamentos"
+            ],
+            "time": "2019-07-16T17:51:35+00:00"
         },
         {
             "name": "webmozart/assert",

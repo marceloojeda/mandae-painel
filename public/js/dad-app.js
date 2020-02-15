@@ -126,13 +126,28 @@ function confirmaCompra(formaPagto) {
     let dados = {
         "valor": $('#valor').val(),
         "taxa": $('#taxa').val(),
+        "idDependente": $('#idDependente').val(),
         "formaPagto": formaPagto
     };
 
     axios.post('/sale/confirm', dados)
         .then(function (response) {
-            //window.open(response.invoiceUrl, "_blank");
 
-            console.log(response);
+            let retorno = response.data;
+            if (retorno.erro) {
+
+                alert(retorno.mensagem);
+
+                return false;
+            }
+
+            if (formaPagto == 'boleto') {
+                window.open(retorno.object.bankSlipUrl, "_blank");
+            } else {
+                window.open(retorno.object.invoiceUrl, "_blank");
+            }
+
+            $('#pos-confirmacao').removeClass('d-none');
+            $('#form-confirmacao').addClass('d-none');
         });
 }

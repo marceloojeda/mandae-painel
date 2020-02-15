@@ -4,21 +4,19 @@ namespace App;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use App\Helpers\Formatacao;
-use App\User;
-use Config;
 
 class AsaasTransacao extends Model
 {
     protected $table;
     protected $fillable;
     public $timestamps = false;
+    private $arrStatusPagamento;
 
     public function __construct(){
     	$this->table = "asaas_transacoes";
         //$this->fillable = ['dateCreated', 'customer', 'subscription', 'telefone', 'imagem', 'ativo'];
+
+        $this->arrStatusPagamento = ['RECEIVED','CONFIRMED','RECEIVED_IN_CASH'];
     }
 
     public function getTransacoes(Request $request) {
@@ -33,5 +31,75 @@ class AsaasTransacao extends Model
         -- left join lancamentos lc on lc.transacao_id = tr.id
         order by tr.dateCreated desc
 EOF;
+    }
+
+
+    public function cadastrar($objeto) {
+        
+        $model = new AsaasTransacao();
+
+        $model->id = $objeto->id;
+        $model->dateCreated = $objeto->dateCreated;
+        $model->customer = $objeto->customer;
+        $model->dueDate = $objeto->dueDate;
+        $model->value = $objeto->value;
+        $model->netValue = !empty($objeto->netValue) ? $objeto->netValue : null;
+        $model->billingType = $objeto->billingType;
+        $model->status = !empty($objeto->status) ? $objeto->status : null;
+        $model->description = !empty($objeto->description) ? $objeto->description : null;
+        $model->externalReference = !empty($objeto->externalReference) ? $objeto->externalReference : null;
+        $model->subscription = !empty($objeto->subscription) ? $objeto->subscription : null;
+        $model->installment = !empty($objeto->installment) ? $objeto->installment : null;
+        $model->originalDueDate = !empty($objeto->originalDueDate) ? $objeto->originalDueDate : null;
+        $model->originalValue = !empty($objeto->originalValue) ? $objeto->originalValue : null;
+        $model->interestValue = !empty($objeto->interestValue) ? $objeto->interestValue : null;
+        $model->confirmedDate = !empty($objeto->confirmedDate) ? $objeto->confirmedDate : null;
+        $model->paymentDate = !empty($objeto->paymentDate) ? $objeto->paymentDate : null;
+        $model->clientPaymentDate = !empty($objeto->clientPaymentDate) ? $objeto->clientPaymentDate : null;
+        $model->lastInvoiceViewedDate = !empty($objeto->lastInvoiceViewedDate) ? $objeto->lastInvoiceViewedDate : null;
+        $model->lastBankSlipViewedDate = !empty($objeto->lastBankSlipViewedDate) ? $objeto->lastBankSlipViewedDate : null;
+        $model->invoiceUrl = !empty($objeto->invoiceUrl) ? $objeto->invoiceUrl : null;
+        $model->bankSlipUrl = !empty($objeto->bankSlipUrl) ? $objeto->bankSlipUrl : null;
+        $model->invoiceNumber = !empty($objeto->invoiceNumber) ? $objeto->invoiceNumber : null;
+        $model->deleted = !empty($objeto->deleted) ? $objeto->deleted : null;
+        $model->postalService = !empty($objeto->postalService) ? $objeto->postalService : null;
+        $model->anticipated = !empty($objeto->anticipated) ? $objeto->anticipated : null;
+        
+        $model->save();
+    }
+
+    public function getById(string $id) {
+
+        return AsaasTransacao::where('id', $id)->first();
+    }
+
+    public function atualizar($request) {
+
+        if(empty($request->id)){
+            return "Parametro id esperado";
+        }
+
+        $model = $this->getById($request->id);
+
+        if(!$model) {
+            return "Cobrança não encontrada";
+        }
+
+        $model->status = $request->status;
+
+        if(in_array($request->status, $this->arrStatusPagamento)) {
+
+            $model->netValue = $request->netValue;
+
+            if(!empty($request->originalDueDate)) $model->originalDueDate = $request->originalDueDate;
+            if(!empty($request->originalValue)) $model->originalValue = $request->originalValue;
+            if(!empty($request->confirmedDate)) $model->confirmedDate = $request->confirmedDate;
+            if(!empty($request->paymentDate)) $model->paymentDate = $request->paymentDate;
+            if(!empty($request->clientPaymentDate)) $model->clientPaymentDate = $request->clientPaymentDate;
+        }
+        
+        $model->save();
+
+        return "";
     }
 }

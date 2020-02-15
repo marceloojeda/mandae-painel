@@ -36,7 +36,7 @@ class Lancamento extends Model
         $model['conta_id'] = $idConta;
         $model['total'] = $total;
         $model['debito'] = false;
-        $model['origem'] = \Config::get('constants.ORIGEM_PEDIDO.PORTAL_CANTINEIRO');
+        $model['origem'] = \Config::get('constants.ORIGEM_PEDIDO.PORTAL_RESPONSAVEL');
 
         $model->save();
 

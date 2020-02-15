@@ -95,7 +95,7 @@ class Responsavel extends Model
     public function updateAsaasCustomer($asaasCustomerId, $idResponsavel){
         $model = Responsavel::where('id', $idResponsavel)->first();
 
-        if(!$model || empty($model->asaas_customer_id)) {
+        if(!$model) {
             return;
         }
 

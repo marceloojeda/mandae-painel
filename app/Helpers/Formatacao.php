@@ -183,9 +183,11 @@ class Formatacao
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $strRowBody);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
-                curl_setopt($ch, CURLOPT_TIMEOUT, 90);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 
                 $response = curl_exec($ch);
+
+                $httpCode = curl_getinfo($ch , CURLINFO_HTTP_CODE);
 
                 curl_close($ch);
 
@@ -208,5 +210,9 @@ class Formatacao
         }
 
         return $response;
+    }
+
+    public static function dataAtual($formato = 'Y-m-d') {
+        return date($formato);
     }
 }
