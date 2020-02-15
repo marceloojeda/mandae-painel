@@ -83,7 +83,7 @@ EOF;
         $objeto = $request->payment;
 
         if(empty($objeto->id)){
-            return "Parametro id esperado";
+            return $objeto;
         }
 
         $model = $this->getById($objeto->id);
