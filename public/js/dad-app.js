@@ -111,7 +111,7 @@ function getSaldo() {
         });
 }
 
-function comprar(valor, taxa) {
+function comprar(valor) {
 
     event.preventDefault();
 

@@ -34,7 +34,33 @@ class AsaasController extends Controller
         }
         
         $valor = $request->input('valor');
-        $taxa = $valor * 0.05;
+        
+        $taxa = 0;
+        switch ($valor) {
+            case 30:
+                $taxa = 1.47;
+                break;
+            case 50:
+                $taxa = 2.45;
+                break;
+            case 100:
+                $taxa = 4.9;
+                break;
+            case 200:
+                $taxa = 9.8;
+                break;
+            case 300:
+                $taxa = 9.8;
+                break;
+            case 400:
+                $taxa = 9.8;
+                break;
+            
+            default:
+                $taxa = 9.8;
+                break;
+        }
+
         $total = $valor + $taxa;
         $dependente = $this->dependenteRepo->getById($request->input('dependente'));
 
