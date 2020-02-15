@@ -82,8 +82,6 @@ EOF;
 
         $objeto = $request->payment;
 
-        return json_encode($objeto);
-
         if(empty($objeto->id)){
             return "Parametro id esperado";
         }
