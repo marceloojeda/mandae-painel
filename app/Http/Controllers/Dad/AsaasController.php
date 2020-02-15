@@ -166,7 +166,7 @@ class AsaasController extends Controller
         if(!empty($stdAsaasCustomer->errors)) {
             
             $retorno['erro'] = true;
-            $retorno['msg'] = $stdAsaasCustomer->errors['description'];
+            $retorno['msg'] = $stdAsaasCustomer->errors[0]->description;
             
             return $retorno;
         }
@@ -223,7 +223,7 @@ class AsaasController extends Controller
         if(!empty($stdAsaasPayment->errors)) {
             
             $retorno['erro'] = true;
-            $retorno['msg'] = $stdAsaasPayment->errors['description'];
+            $retorno['msg'] = $stdAsaasPayment->errors[0]->description;
             
             return $retorno;
         }
