@@ -52,4 +52,5 @@ class Conta extends Model
 
         $conta->save();
     }
+
 }

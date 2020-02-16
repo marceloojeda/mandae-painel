@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use DB;
 use App\Conta;
 use App\FiltroViewModel;
+use App\Helpers\Formatacao;
 
 class Lancamento extends Model
 {
@@ -51,5 +52,25 @@ class Lancamento extends Model
         $query->orderBy('id', 'desc');
 
         return $query->paginate();
+    }
+
+    public static function totalGastoHoje($idConta) {
+
+        $lancamentos = Lancamento::where('conta_id', $idConta)
+            ->where('debito', true)
+            ->whereBetween('created_at', array(Formatacao::dataAtual('Y-m-d 00:00:00'), Formatacao::dataAtual('Y-m-d 23:59:59')))
+            ->get();
+
+        if(!$lancamentos) {
+
+            return 0;
+        }
+
+        $total = 0;
+        foreach ($lancamentos as $lancamento) {
+            $total += $lancamento->total;
+        }
+
+        return $total;
     }
 }

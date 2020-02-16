@@ -7,7 +7,8 @@ use App\Pedido;
 use App\Estabelecimento;
 use App\Lancamento;
 use App\Helpers\Formatacao;
-use Config;
+use Exception;
+use Illuminate\Support\Facades\Config;
 
 class PedidoController extends Controller
 {

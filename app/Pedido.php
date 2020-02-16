@@ -73,6 +73,11 @@ class Pedido extends Model
             return sprintf("Saldo atual (R$ %s), insuficiente para confirmar esse pedido.", Formatacao::formataNumero($pedido->conta->saldo));
         }
 
+        $totalGastoHoje = Lancamento::totalGastoHoje($pedido->conta->id);
+        if( ($pedido->total + $totalGastoHoje) > $pedido->conta->limite_diario ) {
+            return sprintf("Limite diário (R$ %s) ultrapassado.", Formatacao::formataNumero($pedido->conta->limite_diario));
+        }
+
         return '';
     }
 }
