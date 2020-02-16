@@ -82,7 +82,7 @@ class Dependente extends Model
         if(isset($request->serie)) $model->serie = $request->serie;
         if(isset($request->sexo)) $model->sexo = $request->sexo;
         if(isset($request->dataNascimento)) $model->data_nascimento = Formatacao::toDate($request->dataNascimento);
-        if(isset($request->senha)) $model->senha = Hash::make($request->senha);
+        if(isset($request->senha)) $model->senha = $request->senha;
         // if(isset($request->ativo)) $model->ativo = Hash::make($request->senha);
 
         $model->save();
