@@ -9,6 +9,10 @@ META:
 
 ssh -i icantina.pem ubuntu@52.67.41.167
 
+SINCRONIZAR ARQUIVOS NO s3
+1) Envio os arquivos da pasta www por ftp ao ec2
+2) Executa o comando: aws s3 sync . s3://app.icantina.biz
+
 Create SSL in Nginx
 
 tutorial: https://www.youtube.com/watch?v=X3Pr5VATOyA
